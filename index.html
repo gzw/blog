@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>郭志伟</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="也许回忆。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="郭志伟">
+<meta property="og:url" content="http://ayl.me/index.html">
+<meta property="og:site_name" content="郭志伟">
+<meta property="og:description" content="也许回忆。">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="郭志伟">
+<meta name="twitter:description" content="也许回忆。">
+  
+    <link rel="alternate" href="/atom.xml" title="郭志伟" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">郭志伟</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">良好的健康状况和高度的身体训练，是有效的脑力劳动的重要条件。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://ayl.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-server_install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/13/server_install/" class="article-date">
+  <time datetime="2017-07-13T05:55:30.688Z" itemprop="datePublished">2017-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h2><p><a href="https://docs.docker.com/engine/installation/linux/centos/" target="_blank" rel="external">安装</a></p>
+<h2 id="Registry"><a href="#Registry" class="headerlink" title="Registry"></a>Registry</h2><p><a href="https://docs.docker.com/registry/deploying/" target="_blank" rel="external">参考</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker run -d -p 5000:5000 --restart=always --name registry \</div><div class="line">  -v /images/docker/registry:/var/lib/registry \</div><div class="line">  registry:2</div></pre></td></tr></table></figure>
+<p>Registry路径：/images/docker/registry</p>
+<h1 id="Minio"><a href="#Minio" class="headerlink" title="Minio"></a>Minio</h1><h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-Linux-x86_64 &gt; /usr/local/bin/docker-compose</div><div class="line">chmod +x /usr/local/bin/docker-compose</div></pre></td></tr></table></figure>
+<h2 id="下载minio客户端"><a href="#下载minio客户端" class="headerlink" title="下载minio客户端"></a>下载minio客户端</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -L https://dl.minio.io/client/mc/release/linux-amd64/mc &gt; /usr/local/bin/</div></pre></td></tr></table></figure>
+<p>mc config host add minio <a href="http://10.32.244.98:9000" target="_blank" rel="external">http://10.32.244.98:9000</a> TIX828J7MM9DB2ZYM55G aDD1EtaMiFRqMwgIucQpcQng7BCX81fA03ovA+GQ S3v4</p>
+<p>从Docker安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">docker run -d -p 9000:9000 --name minio \</div><div class="line">   -e "MINIO_ACCESS_KEY=TIX828J7MM9DB2ZYM55G" \</div><div class="line">   -e "MINIO_SECRET_KEY=aDD1EtaMiFRqMwgIucQpcQng7BCX81fA03ovA+GQ" \</div><div class="line">   -v /mnt/export/minio:/export \</div><div class="line">   -v /mnt/config/minio:/root/.minio \</div><div class="line">   minio/minio server /export</div></pre></td></tr></table></figure>
+<p>文件存储路径：/mnt/export/minio</p>
+<p>配置文件路径：/mnt/config/minio</p>
+<h1 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h1><p><a href="https://golang.org/doc/install?download=go1.8.3.linux-amd64.tar.gz#install" target="_blank" rel="external">安装</a></p>
+<p>GOROOT=/usr/local/go</p>
+<p>GOPATH=/root/go</p>
+<h1 id="SVN"><a href="#SVN" class="headerlink" title="SVN"></a>SVN</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install subversion</div></pre></td></tr></table></figure>
+<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install git-core</div></pre></td></tr></table></figure>
+<h1 id="Inosa"><a href="#Inosa" class="headerlink" title="Inosa"></a>Inosa</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">svn export http://yyrj-pub/svn/SCL_InoDriveDataSys/01%20%E5%BC%80%E5%8F%91%E5%BA%93/03%20%E6%BA%90%E4%BB%A3%E7%A0%81/Server/golang/src/inovance/inosa/</div></pre></td></tr></table></figure>
+<h1 id="Registry操作"><a href="#Registry操作" class="headerlink" title="Registry操作"></a>Registry操作</h1><h2 id="查询镜像的tag"><a href="#查询镜像的tag" class="headerlink" title="查询镜像的tag"></a>查询镜像的tag</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl ip:port/v2/镜像名/tags/list</div></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span> curl localhost:5000/v2/ufs/tags/list</div><div class="line">&#123;"name":"ufs","tags":["1.0","1.1","1.2"]&#125;</div></pre></td></tr></table></figure>
+<h2 id="查询所有镜像"><a href="#查询所有镜像" class="headerlink" title="查询所有镜像"></a>查询所有镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl ip:port/v2/_catalog</div></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span> curl localhost:5000/v2/_catalog</div><div class="line">&#123;"repositories":["ds","ufs","fs"]&#125;</div></pre></td></tr></table></figure>
+<h1 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h1><h2 id="Docker安装-1"><a href="#Docker安装-1" class="headerlink" title="Docker安装"></a>Docker安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run -d --name depjenkins -u root -p 9080:8080 -p 50000:50000 -v /mnt/jenkins:/var/jenkins_home suhc-appfs-01:5000/jenkins:2.60.1</div></pre></td></tr></table></figure>
+<h2 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/yum.repos.d/jenkins.repo</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[jenkins]</div><div class="line">name=Jenkins</div><div class="line">baseurl=http://pkg.jenkins-ci.org/redhat</div><div class="line">gpgcheck=1</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key</div><div class="line">yum install jenkins</div><div class="line">yum install java-1.8.0-openjdk</div></pre></td></tr></table></figure>
+<h2 id="Jenkins配置文件"><a href="#Jenkins配置文件" class="headerlink" title="Jenkins配置文件"></a>Jenkins配置文件</h2><p>/etc/sysconfig/jenkins</p>
+<p>修改Jenkins用户为root</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/sysconfig/jenkins</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JENKINS_USER=&quot;root&quot;</div></pre></td></tr></table></figure>
+<h2 id="Jenkins日志文件"><a href="#Jenkins日志文件" class="headerlink" title="Jenkins日志文件"></a>Jenkins日志文件</h2><p>/var/log/jenkins/jenkins.log</p>
+<h2 id="打开防火墙端口"><a href="#打开防火墙端口" class="headerlink" title="打开防火墙端口"></a>打开防火墙端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --zone=public --add-port=8080/tcp --permanent</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl start jenkins</div></pre></td></tr></table></figure>
+<h1 id="SSH免密码登录"><a href="#SSH免密码登录" class="headerlink" title="SSH免密码登录"></a>SSH免密码登录</h1><p>以root用户免密码登录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ssh-keygen</div><div class="line">cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</div><div class="line">scp /root/.ssh/authorized_keys root@ip:/root/.ssh/</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://ayl.me/2017/07/13/server_install/" data-id="cj5212xus000032tzdzrdev0c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/13/server_install/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 guozhiwei<br>
+      <a href="https://www.miitbeian.gov.cn" target="_blank">苏ICP备15054629号</a>
+      <!-- Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> -->
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
